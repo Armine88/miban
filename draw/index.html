@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>Draw</title>
+  <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+<div id='rezultDiv'></div>
+<div id="cursorMoving"></div>
+<label for="btn">
+  <button id="btn">Clean divs</button>
+</label>
+<script>
+  $(document).ready(function() {
+    var myDataRef = new Firebase("https://forwork.firebaseio.com/");
+    $('#cursorMoving').mousemove(function( e ) {
+      var elem = '<div></div>';
+     
+  	
+      var d = $(elem);
+      d.css({
+      	top: e.pageY, 
+      	'left': e.pageX
+      });
+      d.addClass("log");
+       $('#cursorMoving').append(d);
+      // myDataRef.push({ y: e.pageY, x: e.pageX});
+    });
+      
+    // myDataRef.on('child_added', function(snapshot) {
+    //   var cur = snapshot.val();
+    //   var pointer1=$('<div class="log"></div>');
+    //   $('#rezultDiv').append(pointer1);
+    //   pointer1.css({
+    //     'top': cur.y-220,
+    //     'left': cur.x
+    //   });
+    // });
+      
+    $('#btn').click(function(){
+      $('#cursorMoving').empty();
+      $('#rezultDiv').empty();
+      myDataRef.remove();
+    });
+  });
+</script>
+</body>
+</html>
