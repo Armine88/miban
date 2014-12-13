@@ -1,0 +1,25 @@
+body{
+	margin: 0;
+}
+
+.list {
+	width: 400px;
+	height: 500px;
+	background-color: lightblue;
+	float: left;	
+	margin-left: 20px;
+}
+
+
+.li{
+	height: 50px;
+	background-color: blue;
+	font:17px Tahoma;
+	color: white;
+	margin-top: 10px;
+	text-align: center;
+	padding-top: 20px;
+}
+.li:hover{
+	cursor: move;
+}

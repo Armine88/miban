@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>AJAX</title>
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script>
+
+  $(document).ready(function(){
+
+
+  	$("#login").on("click", function(){
+  		var usernameVal = $("#username").val();
+  		var passwordVal = $("#password").val();
+
+  		$.ajax({
+			  type: "GET",
+			  url: "http://127.0.0.1:8080",
+			  data: { 'username': usernameVal,
+			  		  password: passwordVal 
+			  		}
+			})
+		  .done(function( msg ) {
+		     console.log(msg);
+		  });
+
+		  console.log("DONE");
+
+  	});
+
+
+  });
+
+  </script>
+</head>
+<body>
+
+<input id="username" type="text"/>
+<input id="password" type="text"/>
+<a href = "#" id="login">Login</a>
+
+
+</body>
+</html>

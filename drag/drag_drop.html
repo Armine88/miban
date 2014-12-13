@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Moving of divs</title>
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+	<link rel="stylesheet" type="text/css" href="drag_drop.css">
+</head>
+<body>
+<form>
+<input type="number" placeholder = "AAAAA" min = "10" autofocus />
+
+</form>
+
+<iframe  width="800" height="800" src="http://news.am/arm/"></iframe>
+
+<footer>
+
+	<div class="list one"></div>
+	<div class="list two"></div>
+	<script>
+		$(document).ready(function() {
+
+			function render(elem, config) {
+				var len=config.length;
+				var name, tmpElem;
+				for(var i=0; i<len; i++) {
+					name=config[i].name;
+					tmpElem=$("<div class='li'>"+name+"</div>");
+					elem.append(tmpElem);
+				}
+			}
+
+			var firsList =[{name: 'A1'}, {name: 'B1'}, {name: 'C1'}, {name: 'D1'}];
+			var secondList =[{name: 'A2'}, {name: 'B2'}, {name: 'C2'}, {name: 'D2'}];
+			var lists=$(".list");
+			var listElem1=$(lists[0]);
+			var listElem2=$(lists[1]);
+			render(listElem1, firsList);
+			render(listElem2, secondList);
+
+			var text;
+			var currentElem;
+			$(".list").mousedown(function(e) {
+				text=$(e.target).attr("class");
+				if(text==="li"){
+				var el=$(e.target);
+				var w=el.width();
+				var offsetX=e.offsetX;
+				var offsetY=e.offsetY;
+				el.css({position: "fixed", width: w});
+				console.log(el);
+				$("body").mousemove(function(ev) {
+					var t=ev.pageY-offsetY;
+					var l=ev.pageX-offsetX;
+					el.css({
+						top: t,
+						left: l
+					});
+					currentElem=el;
+				});
+			}
+				
+			});
+			$(".list").mouseup(function(e) {
+				//console.log(currentElem.html());
+				if(currentElem!=undefined) {
+					
+					var text=currentElem.text();
+					var div=$("<div class='li'>"+text+"</div>");
+					if(e.pageX>790 && e.pageY<=500){
+						currentElem.remove();
+						currentElem=undefined;
+						$(".two").append(div);
+					}
+					else if(e.pageX<=770 && e.pageY<=500){	
+						currentElem.remove();
+						currentElem=undefined;
+						$(".one").append(div);
+					}
+					console.log(e.pageX+"  "+e.pageY);
+				}
+			});
+			$(".li").mouseup(function(){
+				$("body").off("mousemove");
+			});
+		});
+	</script>
+</footer>
+</body>
+</html>
